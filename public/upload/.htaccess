@@ -1,0 +1,6 @@
+AuthName "Veuillez vous identifier"
+AuthType Basic
+AuthUserFile "/home/fnedoubsla/herisson/upload/.htpasswd"
+Require valid-user
+
+# herisson2590 / herisson2590.resultats

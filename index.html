@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Recensement du hérisson FNE 25-90</title>
+    <style>
+      #ie-banner {
+          display: none;
+          /* other styling */
+      }
+    </style>  
+  </head>
+  <body>
+    <div id="ie-banner" class="notification is-danger mb-1">
+      Attention : ce questionnaire est optimisé pour les navigateurs Google Chrome, Mozilla Firefox et Microsoft Edge.
+    </div>
+    <div id="app"></div>
+    <script>
+      function isIncompatible() {
+        if (!navigator) return true;
+        var msie = navigator.userAgent.indexOf('MSIE');
+        if (msie > 0) return true; // IE 10 or older
+        if (navigator.userAgent.match(/Trident.*rv\:11\./)) return true; // IE 11
+        // if (/^((?!chrome|android).)*safari/i.test(navigator.userAgent)) return true; // Safari
+        return false;// other browser (Edge, ...)
+      }
+      if (isIncompatible()) {
+        var ieWarning = document.getElementById('ie-banner');
+        ieWarning.setAttribute('style', 'display: block;');
+      }
+    </script>  
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

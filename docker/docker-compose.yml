@@ -1,0 +1,32 @@
+version: '3.2'
+services:
+  herisson-php:
+    container_name: herisson-php
+    build:
+      context: './php/'
+    expose:
+      - 9000
+    volumes:
+      - ../public:/var/www/html
+    networks:
+      - herisson
+    restart: unless-stopped
+  herisson-apache:
+    container_name: herisson-apache
+    build:
+      context: './apache/'
+    ports:
+      - 80:80
+    volumes:
+      - ../public:/var/www/html
+    depends_on:
+      - herisson-php
+    networks:
+      - herisson
+      - nginx-proxy
+    restart: unless-stopped
+networks:
+  herisson:
+    driver: bridge
+  nginx-proxy:
+    external: true

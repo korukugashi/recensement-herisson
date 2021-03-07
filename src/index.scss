@@ -1,0 +1,157 @@
+$fne-color: hsl(48, 100%, 67%);
+$primary: $fne-color;
+$link: #b24bc1;
+
+@import "../node_modules/bulma/bulma.sass";
+
+@font-face {
+  font-family: 'Sohoma';
+  src: url('/fonts/sohomalight.eot');
+  src: url("/fonts/sohomalight.eot?#iefix") format("embedded-opentype"), url("/fonts/sohomalight.woff2") format("woff2"), url("/fonts/sohomalight.woff") format("woff"), url("/fonts/sohomalight.ttf") format("truetype"), url("/fonts/sohomalight.svg") format("svg");
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Sohoma';
+  src: url('/fonts/sohomaextrabold.eot');
+  src: url("/fonts/sohomaextrabold.eot?#iefix") format("embedded-opentype"), url("/fonts/sohomaextrabold.woff2") format("woff2"), url("/fonts/sohomaextrabold.woff") format("woff"), url("/fonts/sohomaextrabold.ttf") format("truetype"), url("/fonts/sohomaextrabold.svg") format("svg");
+  font-weight: 800;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Saira';
+  src: url('/fonts/SairaExtraCondensed-ExtraBold.eot');
+  src: url("/fonts/SairaExtraCondensed-ExtraBold.eot?#iefix") format("embedded-opentype"), url("/fonts/SairaExtraCondensed-ExtraBold.woff2") format("woff2"), url("/fonts/SairaExtraCondensed-ExtraBold.woff") format("woff");
+  font-weight: 800;
+  font-style: normal;
+}
+
+.sohoma {
+  font-family: Sohoma;
+}
+.saira {
+  font-family: Saira, sans-serif;
+}
+
+body {
+  background: #efefef;
+  padding-bottom: 2rem;
+}
+
+section {
+  background: #fff;
+  border-radius: 3px;
+}
+
+h4 {
+  font-weight: bold;
+}
+
+p {
+  margin: 1rem 0;
+}
+
+.with-bullet li {
+  margin-left: 2rem;
+  list-style-type: disc;
+}
+
+.transition,
+.autocomplete,
+.showAll-transition,
+.autocomplete ul,
+.autocomplete ul li a {
+  transition: all 0.3s ease-out;
+  -moz-transition: all 0.3s ease-out;
+  -webkit-transition: all 0.3s ease-out;
+  -o-transition: all 0.3s ease-out;
+}
+
+.autocomplete ul {
+  position: absolute;
+  list-style: none;
+  background: #f8f8f8;
+  padding: 10px 0;
+  margin: 0;
+  display: inline-block;
+  width: 100%;
+  max-height: 300px;
+  overflow-y: auto;
+  z-index: 20;
+  border: 1px solid #ddd;
+}
+
+.autocomplete ul li a {
+  text-decoration: none;
+  display: block;
+  background: #f8f8f8;
+  color: #2b2b2b;
+  padding: 5px;
+  padding-left: 10px;
+}
+
+.autocomplete ul li a:hover,
+.autocomplete ul li.focus-list a {
+  color: white;
+  background: #2f9af7;
+}
+
+.autocomplete ul li a span, /*backwards compat*/
+.autocomplete ul li a .autocomplete-anchor-label {
+  display: block;
+  margin-top: 3px;
+  color: grey;
+  font-size: 13px;
+}
+
+.autocomplete ul li a:hover .autocomplete-anchor-label, 
+.autocomplete ul li.focus-list a span, /*backwards compat*/
+.autocomplete ul li a:hover .autocomplete-anchor-label, 
+.autocomplete ul li.focus-list a span {
+  /*backwards compat*/
+  color: white;
+}
+input::placeholder {
+  color: #888 !important;
+}
+
+.select-card {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 1rem 0;
+
+  &>div {
+    width:140px;
+    margin: 0.3rem;
+    padding: 1rem;
+    text-align: center;
+    border: 1px solid #ddd;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-radius: 3px;
+    cursor: pointer;
+    background-color: #efefef;
+
+    &:hover {
+      border-color: #94fff5;
+      background-color: #edfffd;
+    }
+  }
+  img {
+    max-width: 100px;
+    max-height: 80px;
+    width: 100%;
+    align-self: center;
+    margin-bottom: 10px;
+  }
+  .is-selected {
+    background-color: #ffef6c !important;
+    border-color: #eed92c !important;
+  }
+}
+.is-disabled {
+  opacity: 0.5;
+}
