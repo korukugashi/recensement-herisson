@@ -16,7 +16,7 @@
       </div>
       <div class="notification is-info is-flex" style="align-items: center">
         <img src="/icons/chrono.svg" alt="chrono" class="mr-4" style="width: 2.5rem;" />
-        <div>Temps moyen pour répondre à l'enquête : 6min</div>
+        <div>Temps moyen pour répondre à l'enquête : 5min</div>
       </div>
     </div>
     <div class="column">
@@ -31,6 +31,7 @@
           </div>
         </div>
         <ul class="with-bullet">
+          <li><strong>Évitez au maximum de manipuler les hérissons.</strong> Si une manipulation est nécessaire, utilisez autant que possible des gants et vêtements de protection puis lavez-vous les mains.</li>
           <li>Pour l’observer, utilisez une <strong>lumière douce</strong> et n’utilisez pas le flash pour le photographier</li>
           <li>Évitez les <strong>gestes brusques</strong> et le <strong>bruit</strong></li>
           <li>Laissez du temps et de l’espace au hérisson : <strong>ne vous éternisez pas trop</strong> lors de votre visite et <strong>ne le visitez pas trop souvent</strong> (maximum 3 fois par semaine pendant 5 minutes)</li>

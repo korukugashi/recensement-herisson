@@ -9,7 +9,7 @@ $spreadsheet = new Spreadsheet();
 $sheet = $spreadsheet->getActiveSheet();
 
 $headers = ['Numéro', 'Doublon', 'Date', 'Mois', 'Année', 'Heure', 'Adresse', 'Code postal',
-  'Latitude', 'Longitude', 'Route', 'Voie ferrée', 'Urbain', 'Jardin individuel', 'Jardin partagé',
+  'Latitude', 'Longitude', 'Adresse inexacte', 'Route', 'Voie ferrée', 'Urbain', 'Jardin individuel', 'Jardin partagé',
   'Parc', 'Verger', 'Prairie', 'Culture', 'Haie', 'Friche', 'Lisière', 'Forêt', 'Zone humide',
   'Type observation', 'Etat vital', 'Nb vivants', 'Nb morts',
   'Collision', 'Empoisonnement', 'Prédation', 'Parasitisme', 'Accident', 'Autre', 'Empreintes', 'Crottes',
@@ -55,6 +55,7 @@ if ($handle) {
       $data['codePostal'],
       $data['lat'],
       $data['lon'],
+      isset($data['adresseInexacte']) ? $data['adresseInexacte'] : '0',
       in_array('Route', $data['paysage']),
       in_array('Voie ferrée', $data['paysage']),
       in_array('Milieu urbanisé', $data['paysage']),

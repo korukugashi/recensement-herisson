@@ -21,6 +21,7 @@ export default {
     const form = reactive({
       date: date.toISOString().substring(0, 10),
       heure: date.toLocaleTimeString().substring(0, 5),
+      adresseInexacte: 0,
       adresse: null,
       codePostal: null,
       lat: null,

@@ -36,6 +36,12 @@
           />
         </div>
       </div>
+      <div class="field" v-if="form.adresse || form.lat">
+        <label class="checkbox" for="adresseInexacte">
+          <input type="checkbox" id="adresseInexacte" true-value="1" false-value="0" v-model="form.adresseInexacte" />
+          La localisation que j'ai saisie n'est pas précise <span class="is-size-7">(impossibilité de s'arrêter sur le bord de la route, chemin en forêt non localisable, etc.)</span>
+        </label>
+      </div>
     </div>
     <div class="column">
       <div class="field">
