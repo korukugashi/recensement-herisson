@@ -93,7 +93,7 @@ export default {
     if (
       !this.form.date || !this.form.heure || !this.form.lat || !this.form.lon
       || !this.form.paysage.length || !this.form.typeObs.length
-      || (this.form.typeObs.indexOf("Directe") === 0 && (parseInt(this.form.nbAnimals) < 1 || parseInt(this.form.nbDead) < 1 || !this.form.alive.length || (this.form.alive.indexOf("Morts") === 0 && !this.form.deadCause.length)))
+      || (this.form.typeObs.indexOf("Directe") === 0 && (parseInt(this.form.nbAnimals) + parseInt(this.form.nbAnimalsYoung) < 1 || parseInt(this.form.nbDead) + parseInt(this.form.nbDeadYoung) < 1 || !this.form.alive.length || (this.form.alive.indexOf("Morts") === 0 && !this.form.deadCause.length)))
       || (this.form.typeObs.indexOf("Indices de présence") === 0 && !this.form.indices.length)
       || (this.form.photos.length && (this.form.share === null || (this.form.share === "1" && this.form.public === null)))
     ) {

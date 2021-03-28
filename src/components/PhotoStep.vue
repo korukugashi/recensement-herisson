@@ -1,11 +1,11 @@
 <template>
   <h2 class="title is-4 sohoma">Vos photos</h2>
-  <p>Veuillez joindre une ou plusieurs photographie(s) {{ form.typeObs === "Indices de présence" ? "des indices observés avec un élément d’échelle (bout de chaussure, main, doigt, etc.)" : (parseInt(form.nbAnimals) > 1 ? "des hérissons observés" : "du hérisson observé") }}.</p>
+  <p>Veuillez joindre une ou plusieurs photographie(s) {{ form.typeObs === "Indices de présence" ? "des indices observés avec un élément d’échelle (bout de chaussure, main, doigt, etc.)" : (parseInt(form.nbAnimals) + parseInt(form.nbAnimalsYoung) > 1 ? "des hérissons observés" : "du hérisson observé") }}.</p>
   <div class="columns is-vcentered">
     <div class="column is-narrow">
       <div class="file is-boxed" v-if="form.photos.length < 6">
         <label class="file-label">
-          <input class="file-input" type="file" ref="file" accept="image/jpeg" capture="environment" @change="selectFile">
+          <input class="file-input" type="file" ref="file" accept="image/jpeg" @change="selectFile">
           <span class="file-cta">
             <img src="/icons/upload.svg" alt="Ajouter une photo" style="width: 70px" />
             <span class="file-label mt-3 has-text-weight-bold">
@@ -59,7 +59,7 @@ export default {
   created() {
     if (!this.form.date || !this.form.heure || !this.form.lat || !this.form.lon
         || !this.form.paysage.length || !this.form.typeObs.length ||
-        (this.form.typeObs.indexOf("Directe") === 0 && (parseInt(this.form.nbAnimals) < 1 || parseInt(this.form.nbDead) < 1 || !this.form.alive.length || (this.form.alive.indexOf("Morts") === 0 && !this.form.deadCause.length))) ||
+        (this.form.typeObs.indexOf("Directe") === 0 && (parseInt(this.form.nbAnimals) + parseInt(this.form.nbAnimalsYoung) < 1 || parseInt(this.form.nbDead) + parseInt(this.form.nbDeadYoung) < 1 || !this.form.alive.length || (this.form.alive.indexOf("Morts") === 0 && !this.form.deadCause.length))) ||
         (this.form.typeObs.indexOf("Indices de présence") === 0 && !this.form.indices.length)) {
       window.location.href = '/';
     }

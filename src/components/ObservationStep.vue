@@ -84,7 +84,14 @@
       <div class="field">
         <label class="label" for="nb-animals">Combien de hérissons <b>vivants</b> avez-vous vu&nbsp;?&nbsp;*</label>
         <div class="control">
-          <input class="input" type="number" id="nb-animals" v-model="form.nbAnimals" step="1" min="1" max="99" required style="max-width: 5rem;text-align:center" />
+          <div class="columns">
+            <div class="column is-narrow">
+              <label for="nb-animals" style="position: relative; top: 5px">Adultes :</label> <input class="input" type="number" id="nb-animals" v-model="form.nbAnimals" step="1" min="0" max="99" required style="max-width: 5rem;text-align:center" />
+            </div>
+            <div class="column">
+              <label for="nb-animals-young" style="position: relative; top: 5px">Juvéniles :</label> <input class="input" type="number" id="nb-animals-young" v-model="form.nbAnimalsYoung" step="1" min="0" max="99" required style="max-width: 5rem;text-align:center" />
+            </div>
+          </div>
         </div>
       </div>
     </template>
@@ -92,7 +99,14 @@
       <div class="field">
         <label class="label" for="nb-dead">Combien de hérissons <b>morts</b> avez-vous vu&nbsp;?&nbsp;*</label>
         <div class="control">
-          <input class="input" type="number" id="nb-dead" v-model="form.nbDead" step="1" min="1" max="99" required style="max-width: 5rem;text-align:center" />
+          <div class="columns">
+            <div class="column is-narrow">
+              <label for="nb-dead" style="position: relative; top: 5px">Adultes :</label> <input class="input" type="number" id="nb-dead" v-model="form.nbDead" step="1" min="0" max="99" required style="max-width: 5rem;text-align:center" />
+            </div>
+            <div class="column">
+              <label for="nb-dead-young" style="position: relative; top: 5px">Juvéniles :</label> <input class="input" type="number" id="nb-dead-young" v-model="form.nbDeadYoung" step="1" min="0" max="99" required style="max-width: 5rem;text-align:center" />
+            </div>
+          </div>
         </div>
       </div>
     </template>
@@ -159,7 +173,7 @@ export default {
     isNextDisabled() {
       return !this.form.date || !this.form.heure || !this.form.lat || !this.form.lon
         || !this.form.paysage.length || !this.form.typeObs.length ||
-        (this.form.typeObs.indexOf("Directe") === 0 && (parseInt(this.form.nbAnimals) < 1 || parseInt(this.form.nbDead) < 1 || !this.form.alive.length || (this.form.alive.indexOf("Morts") === 0 && !this.form.deadCause.length))) ||
+        (this.form.typeObs.indexOf("Directe") === 0 && (parseInt(this.form.nbAnimals) + parseInt(this.form.nbAnimalsYoung) < 1 || parseInt(this.form.nbDead) + parseInt(this.form.nbDeadYoung) < 1 || !this.form.alive.length || (this.form.alive.indexOf("Morts") === 0 && !this.form.deadCause.length))) ||
         (this.form.typeObs.indexOf("Indices de présence") === 0 && !this.form.indices.length);
     }
   },
