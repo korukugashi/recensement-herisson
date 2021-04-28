@@ -36,9 +36,9 @@ if ($handle) {
     $oneWeekInSeconds = 60 * 60 * 24 * 7;
 
     foreach ($previous as $prevLine) {
-      if (abs($thisDate - $prevLine[1]) < $oneWeekInSeconds &&
-        abs($data['lat'] - $prevLine[2]) < 0.01 &&
-        abs($data['lon'] - $prevLine[3]) < 0.01) {
+      if (/*abs($thisDate - $prevLine[1]) < $oneWeekInSeconds &&*/
+        abs($data['lat'] - $prevLine[2]) < 0.0001 &&
+        abs($data['lon'] - $prevLine[3]) < 0.0001) {
         $doublon[] = $prevLine[0];
       }
     }

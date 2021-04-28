@@ -20,8 +20,7 @@ try {
     || !isset($data['satisfaction']) || !isset($data['subscribe'])
     || !$data['date'] || !$data['heure']
     || !$data['lat'] || !$data['lon'] || empty($data['paysage']) || empty($data['typeObs'])
-    || !$data['firstname'] || !$data['name'] || !$data['email']
-    || empty($data['satisfaction'])) {
+    || !$data['firstname'] || !$data['name'] || !$data['email']) {
     throw new \Exception('Missing parameters');
   }
 
