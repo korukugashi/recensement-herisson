@@ -7,9 +7,9 @@
   <template v-else-if="step === 2">
     <div class="is-flex" style="align-items: center">
       <img src="/icons/checked.svg" alt="OK" style="width: 40px" />
-      <h2 class="ml-3 title is-4 sohoma">Observation enregistrée !</h2>
+      <h2 class="ml-3 title is-4 sohoma">Félicitations, votre contribution vient s'ajouter aux {{nbContrib}} autres observations que nous cumulons déjà cette année !</h2>
     </div>
-    <p>Nous vous remercions d’avoir contribué à notre recensement participatif !</p>
+    <p>Nous vous remercions d’avoir participé à notre recensement participatif :)</p>
     <p>Retrouvez les actions de FNE 25-90 auxquelles vous pouvez participer sur <a href="https://www.fne2590.org">www.fne2590.org</a>, ainsi que les actions organisées par le réseau FNE régional sur <a href="https://www.fne-bfc.fr">www.fne-bfc.fr</a> !</p>
     <p>Vous pouvez également nous suivre sur les réseaux sociaux : <a href="https://www.facebook.com/fne2590">Facebook</a>, <a href="https://twitter.com/fne2590">Twitter</a> </p>
     <p>Au plaisir,<br/>L'équipe FNE 25-90</p>
@@ -64,6 +64,7 @@ export default {
       step: 0,
       progress: 0,
       filesCount: 0,
+      nbContrib: 1,
       error: null,
     };
   },
@@ -112,6 +113,8 @@ export default {
           blob = await this.resizeImg(file);
           const formData = new FormData();
           formData.append("id", responseText);
+          formData.append("pubPhoto", this.form.share || "0");
+          formData.append("pubNom", this.form.public || "0");
           formData.append("file", blob);
           await uploadRequest(
             import.meta.env.PROD ? "/upload.php" : "http://localhost/upload.php",
@@ -121,6 +124,7 @@ export default {
           window.URL.revokeObjectURL(file);
         }
 
+        this.nbContrib = responseText;
         this.step = 2;
       } catch (err) {
         this.error = err;

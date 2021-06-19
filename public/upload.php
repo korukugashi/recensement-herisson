@@ -42,9 +42,11 @@ try {
   if (!move_uploaded_file(
     $_FILES['file']['tmp_name'],
     sprintf(
-      __DIR__.'/upload/%u-%s.%s',
+      __DIR__.'/upload/%u-%s-%u-%u.%s',
       $_POST['id'],
       sha1_file($_FILES['file']['tmp_name']),
+      isset($_POST['pubPhoto']) && $_POST['pubPhoto'] ? 1 : 0,
+      isset($_POST['pubNom']) && $_POST['pubNom'] ? 1 : 0,
       $ext
     )
   )) {
