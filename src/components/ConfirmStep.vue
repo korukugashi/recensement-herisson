@@ -48,7 +48,7 @@ function uploadRequest(url, formData, onProgress) {
     };
     xhr.upload.onprogress = onProgress;
     xhr.onerror = function () {
-      reject(xhr.responseText);
+      reject("Un problème réseau est survenu (coupure de connexion, délai d'envoi dépassé, ...)");
     };
     xhr.send(formData);
   });
@@ -116,6 +116,8 @@ export default {
           formData.append("pubPhoto", this.form.share || "0");
           formData.append("pubNom", this.form.public || "0");
           formData.append("file", blob);
+          formData.append("num", this.filesCount);
+          formData.append("name", `${this.form.name}-${this.form.firstname}` || "");
           await uploadRequest(
             import.meta.env.PROD ? "/upload.php" : "http://localhost/upload.php",
             formData,

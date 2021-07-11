@@ -25,18 +25,12 @@ try {
   }
 
   $filename = __DIR__.'/upload/data';
-  file_put_contents($filename, $input."\n", FILE_APPEND);
-
-  $c = 0;
-  $fp = fopen($filename, 'r');
-  if ($fp) {
-    while (!feof($fp)) {
-      $content = fgets($fp);
-      if($content) $c++;
-    }
-  }
-  fclose($fp);
-  echo $c;
+  $lastline = null;
+  exec('tail -n 1 '.escapeshellarg($filename), $lastline);
+  $lastline = isset($lastline[0]) ? json_decode($lastline[0], true) : ['id' => 1000000];
+  $data['id'] = (isset($lastline['id']) ? $lastline['id'] : 1000000) + 1;
+  file_put_contents($filename, json_encode($data)."\n", FILE_APPEND);
+  echo $data['id'];
 } catch (Exception $e) {
   header("HTTP/1.0 500 Internal Server Error");
   echo $e->getMessage();

@@ -42,11 +42,13 @@ try {
   if (!move_uploaded_file(
     $_FILES['file']['tmp_name'],
     sprintf(
-      __DIR__.'/upload/%u-%s-%u-%u.%s',
+      __DIR__.'/upload/%u-pub%u-%u-%s.%s',
       $_POST['id'],
-      sha1_file($_FILES['file']['tmp_name']),
       isset($_POST['pubPhoto']) && $_POST['pubPhoto'] ? 1 : 0,
-      isset($_POST['pubNom']) && $_POST['pubNom'] ? 1 : 0,
+      isset($_POST['num']) ? $_POST['num'] : 1,
+      isset($_POST['pubNom']) && $_POST['pubNom'] && isset($_POST['name']) ? 
+        substr(preg_replace('/[^A-Za-z0-9_\-]/', '', $_POST['name']), 0, 40) 
+        : sha1_file($_FILES['file']['tmp_name']),
       $ext
     )
   )) {

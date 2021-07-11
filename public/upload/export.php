@@ -23,10 +23,19 @@ foreach ($headers as $index => $columnName) {
 
 if ($handle) {
   $numRow = 1;
+  $relativeNumRow = 1;
+  $offset = isset($_GET['offset']) ? (int) $_GET['offset'] : 0; // OFFSET URL PARAM
+  $max = $offset + 1000; // EXPORT MAX 1000 ROWS TO AVOID MEMORY OVERFLOW
   $previous = [];
 
-  while (($line = fgets($handle)) !== false) {
+  while (($line = fgets($handle)) !== false && $numRow < $max) {
     $numRow++;
+
+    if ($numRow < $offset) {
+      continue;
+    }
+
+    $relativeNumRow++;
     $data = json_decode($line, true);
     $date = new DateTime($data['date']);
     $obsDirecte = in_array('Directe', $data['typeObs']);
@@ -34,6 +43,7 @@ if ($handle) {
     $doublon = [];
     $thisDate = $date->format('U');
     $oneWeekInSeconds = 60 * 60 * 24 * 7;
+    $id = isset($data['id']) ? $data['id'] : $numRow - 1;
 
     foreach ($previous as $prevLine) {
       if (/*abs($thisDate - $prevLine[1]) < $oneWeekInSeconds &&*/
@@ -43,9 +53,9 @@ if ($handle) {
       }
     }
 
-    $previous[] = [$numRow - 1, $thisDate, $data['lat'], $data['lon']];
+    $previous[] = [$id, $thisDate, $data['lat'], $data['lon']];
     $values = [
-      $numRow - 1,
+      $id,
       implode(', ', $doublon),
       $date->format('d/m/Y'),
       $date->format('n'),
@@ -103,7 +113,7 @@ if ($handle) {
     ];
 
     foreach ($values as $index => $value) {
-      $sheet->setCellValueByColumnAndRow($index + 1, $numRow, $value);
+      $sheet->setCellValueByColumnAndRow($index + 1, $relativeNumRow, $value);
     }
   }
 
