@@ -37,6 +37,11 @@ if ($handle) {
 
     $relativeNumRow++;
     $data = json_decode($line, true);
+
+    if (strpos($data['date'], '/') !== false) {
+      $data['date'] = substr($data['date'], 6, 4).'-'.substr($data['date'], 3, 2).'-'.substr($data['date'], 0, 2);
+    }
+
     $date = new DateTime($data['date']);
     $obsDirecte = in_array('Directe', $data['typeObs']);
     $morts = $obsDirecte && in_array('Morts', $data['alive']);

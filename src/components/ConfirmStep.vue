@@ -126,7 +126,7 @@ export default {
           window.URL.revokeObjectURL(file);
         }
 
-        this.nbContrib = responseText;
+        this.nbContrib = parseInt(responseText) - 1000000 + 4329; // new IDs offset
         this.step = 2;
       } catch (err) {
         this.error = err;
