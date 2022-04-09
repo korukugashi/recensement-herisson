@@ -38,11 +38,18 @@ if ($handle) {
     $relativeNumRow++;
     $data = json_decode($line, true);
 
-    if (strpos($data['date'], '/') !== false) {
+    if (strpos($data['date'], '/') === 2) {
       $data['date'] = substr($data['date'], 6, 4).'-'.substr($data['date'], 3, 2).'-'.substr($data['date'], 0, 2);
+    } elseif (strpos($data['date'], '/') === 4) {
+      $data['date'] = str_replace('/', '-', $data['date']);
     }
 
     $date = new DateTime($data['date']);
+
+    if (!is_array($data['typeObs'])) {
+      continue;
+    }
+    
     $obsDirecte = in_array('Directe', $data['typeObs']);
     $morts = $obsDirecte && in_array('Morts', $data['alive']);
     $doublon = [];
