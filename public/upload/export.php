@@ -122,7 +122,7 @@ if ($handle) {
       implode(', ', $data['satisfaction']),
       $data['subscribe'],
       $data['remarks'],
-      isset($data['inVivo']) && $data['inVivo'] ? 'Oui' : 'Non',
+      isset($data['invivo']) && $data['invivo'] ? 'Oui' : 'Non',
       isset($data['company']) && $data['company'] ? $data['company'] : '',
       isset($data['formWork']) && $data['formWork'] ? 'Oui' : 'Non',
     ];
