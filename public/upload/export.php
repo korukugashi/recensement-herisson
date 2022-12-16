@@ -15,7 +15,7 @@ $headers = ['Numéro', 'Doublon', 'Date', 'Mois', 'Année', 'Heure', 'Adresse', 
   'Collision', 'Empoisonnement', 'Prédation', 'Parasitisme', 'Accident', 'Autre', 'Empreintes', 'Crottes',
   'Nid', 'Bruit', 'Compléments', 'Diffusion photo', 'Diffusion auteur',
   'Nom', 'Prénom', 'Code postal', 'Commune', 'Département', 'Email', 'Téléphone', 'Age',
-  'Appréciation', 'Abonnement', 'Remarques'];
+  'Appréciation', 'Abonnement', 'Remarques', 'Partenaire InVivo', 'Société du partenaire', 'Sur lieu de travail'];
 
 foreach ($headers as $index => $columnName) {
   $sheet->setCellValueByColumnAndRow($index + 1, 1, $columnName);
@@ -114,7 +114,10 @@ if ($handle) {
       $data['old'],
       implode(', ', $data['satisfaction']),
       $data['subscribe'],
-      $data['remarks']
+      $data['remarks'],
+      isset($data['inVivo']) && $data['inVivo'] ? 'Oui' : 'Non',
+      isset($data['company']) && $data['company'] ? $data['company'] : '',
+      isset($data['formWork']) && $data['formWork'] ? 'Oui' : 'Non',
     ];
 
     foreach ($values as $index => $value) {
