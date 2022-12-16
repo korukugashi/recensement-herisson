@@ -9,7 +9,7 @@ $headers = ['Numéro', 'Doublon', 'Date envoi formulaire', 'Date', 'Mois', 'Ann�
   'Collision', 'Empoisonnement', 'Prédation', 'Parasitisme', 'Accident', 'Autre', 'Empreintes', 'Crottes',
   'Nid', 'Bruit', 'Compléments', 'Diffusion photo', 'Diffusion auteur',
   'Nom', 'Prénom', 'Code postal', 'Commune', 'Département', 'Email', 'Téléphone', 'Age',
-  'Appréciation', 'Abonnement', 'Remarques'];
+  'Appréciation', 'Abonnement', 'Remarques', 'Partenaire InVivo', 'Société du partenaire', 'Sur lieu de travail'];
 
 header('Content-type: text/csv; charset=utf-8');
 header('Content-Disposition: attachment; filename=export-herisson'.date('Ymd').'.csv');
@@ -121,7 +121,10 @@ if ($handle) {
       $data['old'],
       implode(', ', $data['satisfaction']),
       $data['subscribe'],
-      $data['remarks']
+      $data['remarks'],
+      isset($data['inVivo']) && $data['inVivo'] ? 'Oui' : 'Non',
+      isset($data['company']) && $data['company'] ? $data['company'] : '',
+      isset($data['formWork']) && $data['formWork'] ? 'Oui' : 'Non',
     ];
 
     fputcsv($outstream, $values, ';');

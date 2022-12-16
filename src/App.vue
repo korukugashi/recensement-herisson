@@ -50,6 +50,9 @@ export default {
       satisfaction: [],
       subscribe: null,
       remarks: null,
+      invivo: false,
+      company: null,
+      fromWork: false,
     });
     provide('form', form);
   },
