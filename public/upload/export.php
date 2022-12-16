@@ -1,14 +1,8 @@
 <?php
 
-require __DIR__.'/../vendor/autoload.php';
-
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
-
 $handle = fopen(__DIR__.'/data', 'r');
-$spreadsheet = new Spreadsheet();
-$sheet = $spreadsheet->getActiveSheet();
 
-$headers = ['Numéro', 'Doublon', 'Date', 'Mois', 'Année', 'Heure', 'Adresse', 'Code postal',
+$headers = ['Numéro', 'Doublon', 'Date envoi formulaire', 'Date', 'Mois', 'Année', 'Heure', 'Adresse', 'Code postal',
   'Latitude', 'Longitude', 'Adresse inexacte', 'Route', 'Voie ferrée', 'Urbain', 'Jardin individuel', 'Jardin partagé',
   'Parc', 'Verger', 'Prairie', 'Culture', 'Haie', 'Friche', 'Lisière', 'Forêt', 'Zone humide',
   'Type observation', 'Etat vital', 'Nb vivants', 'Nb juvéniles vivants', 'Nb morts', 'Nb juvéniles morts',
@@ -17,32 +11,44 @@ $headers = ['Numéro', 'Doublon', 'Date', 'Mois', 'Année', 'Heure', 'Adresse', 
   'Nom', 'Prénom', 'Code postal', 'Commune', 'Département', 'Email', 'Téléphone', 'Age',
   'Appréciation', 'Abonnement', 'Remarques', 'Partenaire InVivo', 'Société du partenaire', 'Sur lieu de travail'];
 
-foreach ($headers as $index => $columnName) {
-  $sheet->setCellValueByColumnAndRow($index + 1, 1, $columnName);
-}
+header('Content-type: text/csv; charset=utf-8');
+header('Content-Disposition: attachment; filename=export-herisson'.date('Ymd').'.csv');
+header('Pragma: no-cache');
+header('Expires: 0');
+
+$outstream = fopen('php://output', 'a');
+fputs($outstream, chr(0xEF).chr(0xBB).chr(0xBF)); // add BOM to fix UTF-8 in Excel
+fputcsv($outstream, $headers, ';');
 
 if ($handle) {
   $numRow = 1;
   $relativeNumRow = 1;
-  $offset = isset($_GET['offset']) ? (int) $_GET['offset'] : 0; // OFFSET URL PARAM
-  $max = $offset + 1000; // EXPORT MAX 1000 ROWS TO AVOID MEMORY OVERFLOW
   $previous = [];
 
-  while (($line = fgets($handle)) !== false && $numRow < $max) {
+  while (($line = fgets($handle)) !== false) {
     $numRow++;
-
-    if ($numRow < $offset) {
-      continue;
-    }
 
     $relativeNumRow++;
     $data = json_decode($line, true);
 
-    if (strpos($data['date'], '/') !== false) {
+    if (strpos($data['date'], '/') === 2) {
       $data['date'] = substr($data['date'], 6, 4).'-'.substr($data['date'], 3, 2).'-'.substr($data['date'], 0, 2);
+    } elseif (strpos($data['date'], '/') === 4) {
+      $data['date'] = str_replace('/', '-', $data['date']);
+    }
+
+    $month = substr($data['date'], 5, 2);
+    $day = substr($data['date'], 8, 2);
+    if (($month > 12 || $month < 1) && $day < 13 && $day > 0) {// mois/jour inversé
+      $data['date'] = substr($data['date'], 0, 4).'-'.$day.'-'.$month;
     }
 
     $date = new DateTime($data['date']);
+
+    if (!is_array($data['typeObs'])) {
+      continue;
+    }
+    
     $obsDirecte = in_array('Directe', $data['typeObs']);
     $morts = $obsDirecte && in_array('Morts', $data['alive']);
     $doublon = [];
@@ -62,6 +68,7 @@ if ($handle) {
     $values = [
       $id,
       implode(', ', $doublon),
+      isset($data['postDate']) ? $data['postDate'] : '',
       $date->format('d/m/Y'),
       $date->format('n'),
       $date->format('Y'),
@@ -120,19 +127,10 @@ if ($handle) {
       isset($data['formWork']) && $data['formWork'] ? 'Oui' : 'Non',
     ];
 
-    foreach ($values as $index => $value) {
-      $sheet->setCellValueByColumnAndRow($index + 1, $relativeNumRow, $value);
-    }
+    fputcsv($outstream, $values, ';');
   }
 
-  fclose($handle);
-
-  header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-  header('Content-Disposition: attachment;filename="herisson.xlsx"');
-  header('Cache-Control: max-age=0');
-  
-  $writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Xlsx');
-  $writer->save('php://output'); 
+  fclose($outstream);
 } else {
   echo 'Error lors de l\'ouverture du fichier de données';
 }

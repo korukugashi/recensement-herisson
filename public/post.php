@@ -29,6 +29,7 @@ try {
   exec('tail -n 1 '.escapeshellarg($filename), $lastline);
   $lastline = isset($lastline[0]) ? json_decode($lastline[0], true) : ['id' => 1000000];
   $data['id'] = (isset($lastline['id']) ? $lastline['id'] : 1000000) + 1;
+  $data['postDate'] = date('d/m/Y');
   file_put_contents($filename, json_encode($data)."\n", FILE_APPEND);
   echo $data['id'];
 } catch (Exception $e) {
