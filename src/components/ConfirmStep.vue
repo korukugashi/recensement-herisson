@@ -10,9 +10,9 @@
       <h2 class="ml-3 title is-4 sohoma">Félicitations, votre contribution vient s'ajouter aux {{nbContrib}} autres observations que nous cumulons déjà cette année !</h2>
     </div>
     <p>Nous vous remercions d’avoir participé à notre recensement participatif :)</p>
-    <p>Retrouvez les actions de FNE 25-90 auxquelles vous pouvez participer sur <a href="https://www.fne2590.org">www.fne2590.org</a>, ainsi que les actions organisées par le réseau FNE régional sur <a href="https://www.fne-bfc.fr">www.fne-bfc.fr</a> !</p>
-    <p>Vous pouvez également nous suivre sur les réseaux sociaux : <a href="https://www.facebook.com/fne2590">Facebook</a>, <a href="https://twitter.com/fne2590">Twitter</a> </p>
-    <p>Au plaisir,<br/>L'équipe FNE 25-90</p>
+    <p>Retrouvez les actions de FNE 25 auxquelles vous pouvez participer sur <a href="https://www.fne25.fr">www.fne25.fr</a>, ainsi que les actions organisées par le réseau FNE régional sur <a href="https://www.fne-bfc.fr">www.fne-bfc.fr</a> !</p>
+    <p>Vous pouvez également nous suivre sur les réseaux sociaux : <a href="https://www.facebook.com/fne25000/">Facebook</a>, <a href="https://twitter.com/fne_doubs">Twitter</a>, <a href="https://mastodon.social/@fne2590">Mastodon</a> </p>
+    <p>Au plaisir,<br/>L'équipe FNE 25</p>
     <div class="has-text-centered">
       <a href="/" class="button">Faire une nouvelle observation</a>
     </div>

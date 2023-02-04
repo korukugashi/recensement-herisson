@@ -2,7 +2,7 @@
   <div class="container">
     <header>
       <router-link :to="{ name: 'home' }" class="is-flex" style="align-items: center; justify-content: center; cursor: pointer">
-        <img alt="FNE 25-90" src="/logo-fne-25-90.svg" style="width: 100px" />
+        <img alt="France Nature Environnement" src="/logo-fne.png" style="height: 100px" />
         <h1 class="title is-3 saira ml-5" style="color: #c90c0f">Opération de recensement du hérisson</h1>
       </router-link>
     </header>
