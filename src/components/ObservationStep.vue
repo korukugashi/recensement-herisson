@@ -1,23 +1,17 @@
 <template>
   <h2 class="title is-4 sohoma">Votre observation</h2>
   <div class="columns mt-1">
-    <div class="column is-5">
-      <div class="columns is-mobile">
-        <div class="column">
-          <div class="field">
-            <label class="label" for="date">Date&nbsp;*</label>
-            <div class="control">
-              <input class="input" type="date" id="date" placeholder="Date de l'observation (jj/mm/yyyy)" required v-model="form.date" />
-            </div>
-          </div>
+    <div class="column is-4">
+      <div class="field">
+        <label class="label" for="date">Date&nbsp;*</label>
+        <div class="control">
+          <input class="input" type="date" id="date" placeholder="Date de l'observation (jj/mm/yyyy)" required v-model="form.date" />
         </div>
-        <div class="column is-5">
-          <div class="field">
-            <label class="label" for="hour">Heure&nbsp;*</label>
-            <div class="control">
-              <input class="input" type="time" id="hour" placeholder="Heure de l'observation (HH:MM)" required v-model="form.heure" />
-            </div>
-          </div>
+      </div>
+      <div class="field">
+        <label class="label" for="hour">Heure&nbsp;*</label>
+        <div class="control">
+          <input class="input" type="time" id="hour" placeholder="Heure de l'observation (HH:MM)" required v-model="form.heure" />
         </div>
       </div>
       <div class="field">
@@ -34,6 +28,7 @@
             :onInput="clearAdresse"
             :onShouldGetData="getAdresse"
           />
+          <div v-if="fetchAddressError" style="color: red; font-weight: bold; font-size: 0.8rem">Une erreur s'est produite lors de la recherche de l'adresse, veuillez réessayer plus tard ou nous contacter. Autrement, vous pouvez aussi placer directement sur la carte.</div>
         </div>
       </div>
       <div class="field" v-if="form.adresse || form.lat">
@@ -161,6 +156,11 @@ export default {
     const form = inject("form");
     return { form };
   },
+  data() {
+    return {
+      fetchAddressError: false,
+    };
+  },
   created() {
     if (navigator.geolocation && !this.form.lon) {
       navigator.geolocation.getCurrentPosition(position => {
@@ -191,6 +191,7 @@ export default {
       this.form.lon = null;
     },
     getAdresse: async function (val) {
+      this.fetchAddressError = false;
       if (val.length < 2) return [];
       try {
         const apiResponse = await axios.get("https://api-adresse.data.gouv.fr/search", { params: { q: val } })
@@ -201,7 +202,7 @@ export default {
           lat: feature.geometry.coordinates[1],
         }) : { label: "Erreur", x: 0, y: 0 });
       } catch (error) {
-        alert("Une erreur s'est produite lors de la recherche de l'adresse, veuillez réessayer plus tard ou nous contacter.");
+        this.fetchAddressError = true;
         return [];
       }
     },

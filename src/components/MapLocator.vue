@@ -65,5 +65,5 @@ export default {
 </script>
 
 <style scoped>
-#map-locator {height: 170px}
+#map-locator {height: 350px}
 </style>

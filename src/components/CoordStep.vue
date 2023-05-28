@@ -3,7 +3,7 @@
   <div class="mb-4">
     <label class="checkbox">
       <input type="checkbox" v-model="form.invivo" />
-      Je contibue en tant que partenaire InVivo
+      Je contribue en tant que partenaire InVivo/Teract
     </label>
     <div class="columns mt-2" v-if="form.invivo">
       <div class="column">
@@ -72,6 +72,7 @@
             :onInput="clearAdresse"
             :onShouldGetData="getAdresse"
           />
+          <div v-if="fetchAddressError" style="color: red; font-weight: bold; font-size: 0.8rem">Une erreur s'est produite lors de la recherche de l'adresse, veuillez réessayer plus tard ou nous contacter. Autrement, vous pouvez aussi placer directement sur la carte.</div>
         </div>
       </div>
     </div>
@@ -112,6 +113,11 @@ export default {
   setup() {
     const form = inject("form");
     return { form };
+  },
+  data() {
+    return {
+      fetchAddressError: false,
+    };
   },
   created() {
     if (
@@ -157,6 +163,7 @@ export default {
       this.form.userDep = null;
     },
     getAdresse: async function (val) {
+      this.fetchAddressError = false;
       if (val.length < 2) return [];
       try {
         const apiResponse = await axios.get("https://api-adresse.data.gouv.fr/search", { params: { q: val, type: "municipality" } });
@@ -174,7 +181,7 @@ export default {
           )
         );
       } catch (error) {
-        alert("Une erreur s'est produite lors de la recherche de l'adresse, veuillez réessayer plus tard ou nous contacter.");
+        this.fetchAddressError = true;
         return [];
       }
     },

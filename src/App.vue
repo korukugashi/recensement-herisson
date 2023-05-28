@@ -1,10 +1,16 @@
 <template>
   <div class="container">
     <header>
-      <router-link :to="{ name: 'home' }" class="is-flex" style="align-items: center; justify-content: center; cursor: pointer">
-        <img alt="France Nature Environnement" src="/logo-fne.png" style="height: 100px" />
-        <h1 class="title is-3 saira ml-5" style="color: #c90c0f">Opération de recensement du hérisson</h1>
-      </router-link>
+      <div class="columns">
+        <div class="column">
+          <router-link :to="{ name: 'home' }" class="is-flex" style="align-items: center; justify-content: center; cursor: pointer">
+            <img alt="France Nature Environnement" src="/logo-fne.png" style="max-width:333px; max-height: 100px" />
+          </router-link>
+        </div>
+        <div class="column" style="display:flex;align-items:center;justify-content:center">
+          <h1 class="title is-3 saira ml-5" style="color: #c90c0f">Opération de recensement du hérisson</h1>
+        </div>
+      </div>
     </header>
     <section class="section">
       <router-view />
