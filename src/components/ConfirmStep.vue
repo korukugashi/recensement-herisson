@@ -2,7 +2,7 @@
   <div class="notification is-alert" v-if="error !== null">
     <p>Erreur lors de l'envoi du formulaire.</p>
     <p>Détails : <pre>{{error}}</pre></p>
-    <p>Veuillez <a href="javascript:window.location.href=atob('bWFpbHRvOmhlcmlzc29uQGZuZTI1OTAub3Jn')">nous envoyer un email</a> pour nous signaler ce dysfonctionnement.</p>
+    <p>Veuillez <a href="javascript:window.location.href=atob('bWFpbHRvOmhlcmlzc29uQGZuZTI1ZnI')">nous envoyer un email</a> pour nous signaler ce dysfonctionnement.</p>
   </div>
   <template v-else-if="step === 2">
     <div class="is-flex" style="align-items: center">
